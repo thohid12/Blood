@@ -270,8 +270,13 @@ def update(request):
         if(exists==True):
             updated_info = Donar_donate_info.objects.get(phone=previous_phone)
             if updated_file:
-                os.remove(updated_info.img.path)
-                updated_info.img=updated_file
+                # Upload the image to Cloudinary
+                cloudinary_response = upload(updated_file)
+                # Get the secure URL of the uploaded image
+                image_url = cloudinary_response.get('secure_url')
+                print(image_url)
+                #os.remove(updated_info.img.path)
+                updated_info.img=image_url
             if(len(updated_phone)>0):
                 updated_phone_signup=User.objects.get(username=previous_phone)
                 updated_phone_signup.username=updated_phone
