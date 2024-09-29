@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Telex&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* font-family: "Lato", sans-serif; */
+/* font-family: "Telex", sans-serif; */
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.login_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.login{
+    font-family: "Lato", sans-serif;
+    width: min(90vw,400px);
+    padding: min(10vw, 100px);
+    margin: 5vw;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+}
+
+.login h2{
+    font-size: 2.5em;
+    font-weight: 900;
+    color: rgba(52, 52, 52, 1);
+}
+
+form{
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.input_container{
+    margin: 20px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+    color: rgba(51, 51, 51, 1);
+    width: 100%;
+    position: relative;
+}
+.input_container i{
+    color: rgb(120, 120, 120);
+}
+
+.login_container input{
+    border: none;
+    margin-left: 5px;
+    padding: 10px;
+    width: 85%;
+}
+
+input:focus{
+    outline: 0;
+}
+
+input[type="submit"]{
+    font-family: "Telex", sans-serif;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+	background-color: rgba(198, 5, 19, 1);
+	color: white;
+    margin: 20px 0px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.eye{
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    display: none;
+    cursor: pointer;
+}
+
+form>p{
+	font-family: "Telex", sans-serif;
+    text-align: center;
+    color: rgba(107, 106, 106, 1);
+}
+
+form>p>a{
+    color: rgba(198, 5, 19, 1);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* New Error Messege start 16/9/24 */
+.error{
+    background-color: #c605122e;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgba(198, 5, 19, 1);
+    padding: 10px;
+    border: 2px solid rgba(198, 5, 19, 1);
+    border-style: dashed;
+    border-radius: 5px;
+    margin: 10px 0px;
+    text-align: center;
+}
+/* New Error Messege end */
+
+/* Responsive Code section */
+
+@media screen and (width <= 576px) {
+    .login{
+        font-size: 12px;
+        border-radius: 20px;
+    }
+}
+
+@media screen and (height <= 576px) and (orientation: landscape) {
+    .login_container{
+        height: 180vh;
+    }
+}
+@import url('https://fonts.googleapis.com/css2?family=Telex&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* font-family: "Lato", sans-serif; */
+/* font-family: "Telex", sans-serif; */
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.login_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.login{
+    font-family: "Lato", sans-serif;
+    width: min(90vw,400px);
+    padding: min(10vw, 100px);
+    margin: 5vw;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+}
+
+.login h2{
+    font-size: 2.5em;
+    font-weight: 900;
+    color: rgba(52, 52, 52, 1);
+}
+
+form{
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.input_container{
+    margin: 20px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+    color: rgba(51, 51, 51, 1);
+    width: 100%;
+    position: relative;
+}
+.input_container i{
+    color: rgb(120, 120, 120);
+}
+
+.login_container input{
+    border: none;
+    margin-left: 5px;
+    padding: 10px;
+    width: 85%;
+}
+
+input:focus{
+    outline: 0;
+}
+
+input[type="submit"]{
+    font-family: "Telex", sans-serif;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+	background-color: rgba(198, 5, 19, 1);
+	color: white;
+    margin: 20px 0px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.eye{
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    display: none;
+    cursor: pointer;
+}
+
+form>p{
+	font-family: "Telex", sans-serif;
+    text-align: center;
+    color: rgba(107, 106, 106, 1);
+}
+
+form>p>a{
+    color: rgba(198, 5, 19, 1);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Responsive Code section */
+
+@media screen and (width <= 576px) {
+    .login{
+        font-size: 12px;
+        border-radius: 20px;
+    }
+}
+
+@media screen and (height <= 576px) and (orientation: landscape) {
+    .login_container{
+        height: 180vh;
+    }
+}

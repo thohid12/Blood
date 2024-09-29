@@ -1,0 +1,109 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'styles\signup.css' %}">
+
+    <!-- Font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <section class="login_container">
+        <div class="login">
+            <h2>Create Account</h2>
+            <form action="signup" method="post">
+                {% csrf_token %}
+                <div class="input_container">
+                    <i class="fa-solid fa-phone-volume"></i>
+                    <input type="text" name="phone" id="phone"  oninput="hideText()" placeholder="Phone Number" required />
+                </div>
+                 <div class="input_container">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" id="email" placeholder="Email Address" required />
+                </div>
+                <div class="input_container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" id="password" oninput="hideText()" placeholder="Password" required />
+                    <i class="eye fa-regular fa-eye"></i>
+                    <i class="eye fa-regular fa-eye-slash"></i>
+                </div>
+                <div class="input_container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="c_password" id="confirm_password" oninput="hideText()" placeholder="Confirm Password" required />
+                    <i class="eye confirm-eye fa-regular fa-eye"></i>
+                    <i class="eye confirm-eye fa-regular fa-eye-slash"></i>
+                </div>
+
+                <input type="submit" value="Create Account" />
+
+                <p>Already have an account? <a href="Login">Login</a></p>
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == "error" %}
+                <div class="error" id="textToHide">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p >{{ message }}</p>
+                </div>
+                <!-- New Error messege end -->
+                 {% endif %}
+                 {% endfor %}
+                 {% endif %}
+
+            </form>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePasswordVisibility = (passwordInputId, eyeIconClass, eyeSlashIconClass) => {
+                const passwordInput = document.getElementById(passwordInputId);
+                const eyeIcon = document.querySelector(eyeIconClass);
+                const eyeSlashIcon = document.querySelector(eyeSlashIconClass);
+
+                // Initially show the fa-eye icon and hide the fa-eye-slash icon
+                eyeIcon.style.display = 'inline';
+                eyeSlashIcon.style.display = 'none';
+
+                // Toggle password visibility and icon
+                eyeIcon.addEventListener('click', function () {
+                    passwordInput.type = 'text';
+                    eyeIcon.style.display = 'none';
+                    eyeSlashIcon.style.display = 'inline';
+                });
+
+                eyeSlashIcon.addEventListener('click', function () {
+                    passwordInput.type = 'password';
+                    eyeIcon.style.display = 'inline';
+                    eyeSlashIcon.style.display = 'none';
+                });
+            };
+
+            togglePasswordVisibility('password', '.fa-eye', '.fa-eye-slash');
+            togglePasswordVisibility('confirm_password', '.confirm-eye.fa-eye', '.confirm-eye.fa-eye-slash');
+        });
+
+        function hideText() {
+            var inputField_phone= document.getElementById("phone").value;
+            var inputField_pass = document.getElementById("password").value;
+            var inputField_c_pass = document.getElementById("confirm_password").value;
+            var textToHide = document.getElementById("textToHide");
+
+            if (inputField_phone.length > 0 ||inputField_pass.length>0 || inputField_c_pass.length>0) {
+                textToHide.style.display = "none"; // Hide the text
+            } 
+        }
+
+
+
+    </script>
+</body>
+
+</html>

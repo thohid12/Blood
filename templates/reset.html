@@ -1,0 +1,105 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'styles\login.css'%}">
+
+    <!-- Font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href=".cstyless">
+</head>
+
+<body>
+    <section class="login_container">
+        <div class="login">
+            <h2>Reset Password</h2>
+            <form action="reset" method="post">
+                {% csrf_token %}
+                <div class="input_container">
+                    <i class="fa-solid fa-phone-volume"></i>
+                    <input type="text" name="phone" id="phone" oninput="hideText()" placeholder="Phone Number"
+                        required />
+                </div>
+                <div class="input_container">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" id="email" placeholder="Email Address" required />
+                </div>
+                <div class="input_container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" id="password" oninput="hideText()" placeholder="Password"
+                        required />
+                    <i class="eye fa-regular fa-eye"></i>
+                    <i class="eye fa-regular fa-eye-slash"></i>
+
+                </div>
+
+                <input type="submit" onclick="storePhoneNumber()" value="Submit" />
+
+                
+
+                <!-- New Error Messege start 16/9/24 -->
+
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == "error" %}
+                <div class="error" id="textToHide">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p >{{ message }}</p>
+                </div>
+                <!-- New Error messege end -->
+                 {% endif %}
+                 {% endfor %}
+                 {% endif %}
+                <!-- New Error messege end -->
+
+            </form>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.querySelector('.fa-eye');
+            const eyeSlashIcon = document.querySelector('.fa-eye-slash');
+
+            // Initially show the fa-eye icon and hide the fa-eye-slash icon
+            eyeIcon.style.display = 'inline';
+            eyeSlashIcon.style.display = 'none';
+
+            // Toggle password visibility and icon
+            eyeIcon.addEventListener('click', function () {
+                passwordInput.type = 'text';
+                eyeIcon.style.display = 'none';
+                eyeSlashIcon.style.display = 'inline';
+            });
+
+            eyeSlashIcon.addEventListener('click', function () {
+                passwordInput.type = 'password';
+                eyeIcon.style.display = 'inline';
+                eyeSlashIcon.style.display = 'none';
+            });
+        });
+
+        function hideText() {
+            var inputField_phone = document.getElementById("phone").value;
+            var inputField_pass = document.getElementById("password").value;
+            var inputField_email = document.getElementById("email").value;
+            var textToHide = document.getElementById("textToHide");
+
+            if (inputField_phone.length > 0 || inputField_pass.length > 0 ||inputField_email.length >0) {
+                textToHide.style.display = "none"; // Hide the text
+            }
+        }
+    </script>
+   
+</body>
+
+</html>

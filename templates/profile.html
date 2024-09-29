@@ -1,0 +1,245 @@
+{% load static %}
+
+
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'styles\profile.css' %}">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Profile</title>
+</head>
+
+<body>
+    <!-- Red top bar of the website -->
+    <section class="topbar">
+        <div class="container topbar-wrapper">
+            <div class="contact">
+                <i class="fa-solid fa-square-phone"></i>
+                <p id="output"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Header -->
+    <header class="container" id="home">
+        <!-- Navigation bar -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="">
+            </div>
+            <ul id="menuList">
+                <li><a href="home">Home</a></li>
+                <li><a href="donate">Donate Blood</a></li>
+                <li><a href="find">Find Donors</a></li>
+                <!-- <li><a href="">Top Donors</a></li> -->
+                <li><a href="update">Update</a></li>
+                <li><a href="Logout">Log Out</a></li>
+
+            </ul>
+            <div class="menu-icon">
+                <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Body -->
+    <main class="container">
+        {% if val == 1 %}
+        {% for fab in fabs %}
+        <div class="profile-info">
+            <div class="profile-wrapper">
+                <div class="profile-image">
+                    <img src="{{ fab.img}}" alt="">
+                </div>
+                <div class="name">
+                    <h2>{{ fab.name }}</h2>
+                </div>
+                <div class="phone-number profile-info-card">
+                    <div class="profile-info-icon">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <p>{{ fab.phone }}</p>
+                </div>
+                <div class="blood-group profile-info-card">
+                    <div class="profile-info-icon">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                    <p>{{ fab.blood }}</p>
+                </div>
+                <div class="address profile-info-card">
+                    <div class="profile-info-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <p>{{ fab.address }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="donation-info">
+            <div class="donation-info-card">
+                <h3>{{ fab.DaysLeft }}</h3>
+                <h3>Days Left</h3>
+            </div>
+            <div class="donation-info-card">
+                <h3>{{ fab.TotalDonate }}</h3>
+                <h3>Total Donate</h3>
+            </div>
+            <div class="donation-info-card">
+                <h3>{{ fab.LastDate }}</h3>
+                <h3>Last Donated</h3>
+            </div>
+            <div class="donation-info-card">
+                <h3>{{ fab.ProbableDate }}</h3>
+                <h3>Probable Date</h3>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="profile-info"></div>
+            <div class="profile-wrapper">
+                <div class="profile-image">
+                    <img src="{% static 'images/profile1.jpg' %}" alt="">
+                </div>
+                <div class="name">
+                    <h2>Not Available</h2>
+                </div>
+                <div class="phone-number profile-info-card">
+                    <div class="profile-info-icon">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <p>{{ phone }}</p>
+                </div>
+                <div class="blood-group profile-info-card">
+                    <div class="profile-info-icon">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                    <h3>Not Available</h3>
+                </div>
+                <div class="address profile-info-card">
+                    <div class="profile-info-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h3>Not Available</h3>
+                </div>
+            </div>
+        </div>
+        <div class="donation-info">
+            <div class="donation-info-card">
+                <h3>Not Available</h3>
+            </div>
+            <div class="donation-info-card">
+                <h3>Not Available</h3>
+            </div>
+            <div class="donation-info-card">
+                <h3>Not Available</h3>
+            </div>
+            <div class="donation-info-card">
+                <h3>Not Available</h3>
+                
+            </div>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="container">
+        <div class="footer-wrapper">
+            <div class="footer-first-column">
+                <div class="footer-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="">
+                </div>
+                <div class="footer-text">
+                    <p>At Aldam, our mission is to save lives by promoting and facilitating blood donation.</p>
+                </div>
+                <div class="footer-social">
+                    <div class="icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-brands fa-twitter"></i>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-second-column">
+                <h3>About</h3>
+                <p>Design by <br> <b>MD. Ibrahim</b> </p>
+                <p>Fontend Developed by <br> <b>Faisal Ahammod</b> </p>
+                <p>Backend Developed by <br> <b>Thofiqul Islam</b> </p>
+                <p>Company belongs to <br> <b>Markin bracknell Ai</b> </p>
+            </div>
+            <div class="footer-third-column">
+                <h3>Partnership</h3>
+                <p>Bobbin</p>
+            </div>
+            <div class="footer-fourth-column">
+                <h3>Contacts</h3>
+                <p>01890429462</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copyright -->
+     <section class="copyright">
+        <div class="container">
+            <div class="copyright-text">
+                <p>2024 ALDAM. All Right Reserved</p>
+            </div>
+            <div class="goto-top-btn">
+                <a href="#home"><i class="fa-solid fa-arrow-up"></i></a>
+            </div>
+        </div>
+     </section>
+    <!-- Script For Navbar Toggle menue of nabvar -->
+    <script>
+        let menuList = document.getElementById("menuList");
+        window.addEventListener('DOMContentLoaded', function () {
+            if (window.innerWidth >= 768) {
+                menuList.style.height = 'auto';
+            } else {
+                menuList.style.height = '0px';
+            }
+        });
+
+        function toggleMenu(){
+            if(menuList.style.height == "0px")
+            {
+                menuList.style.height = "auto";
+            }
+            else{
+                menuList.style.height = "0px";
+            }
+        }
+
+        // This function is not necessary for users but for dev mode
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 768) {
+                menuList.style.height = 'auto';
+            } else {
+                menuList.style.height = '0px';
+            }
+        });
+
+        var phoneNumber = localStorage.getItem('phoneNumber');
+        document.getElementById('output').innerText = phoneNumber;
+        
+    </script>
+</body>
+
+</html>
