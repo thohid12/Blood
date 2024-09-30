@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,HttpResponse
 
-from  .models import signup_info,Donar_donate_info,FindInfo,PreviousInfo,ProfileInfo
+from  .models import signup_info,Donar_donate_info,FindInfo,PreviousInfo,ProfileInfo,Feedback
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -343,7 +343,23 @@ def update(request):
     else:      
         return render(request,'update.html')
     
-    
+
+
+
+ #Feedback 
+def feedback(request):
+    if request.method == 'POST':
+        feedback_hidden_phone =request.POST["hidden_phone_feedback"]
+        feedback_message =request.POST["message"]
+        if(len( feedback_message)>0):
+            feedback_info=Feedback(phone=feedback_hidden_phone,feedback=feedback_message)
+            feedback_info.save()
+            return redirect('home')
+        else:
+            return redirect('home')
+    else:
+        return HttpResponse("Page not found", status=404)
+        
 #otp
 def generate_otp():
     return str(random.randint(100000, 999999))
