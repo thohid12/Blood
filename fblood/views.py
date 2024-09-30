@@ -386,7 +386,7 @@ def reset(request):
             # Redirect to the OTP verification page
             return redirect('otp')
         else:
-            messages.error(request,"Phone and email are not matching")
+            messages.error(request,"Phone or email are not matching(Please Enter The Prvious Phone and Email)")
             return redirect('reset')
             
     else:
