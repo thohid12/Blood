@@ -314,11 +314,13 @@ def update(request):
             if(len(updated_phone)>0):
                 updated_phone_signup=User.objects.get(username=previous_phone)
                 updated_phone_signup.username=updated_phone
+                updated_phone_signup.save() 
                 
             if(len(updated_mail)>0):
                 updated_phone_signup=User.objects.get(username=previous_phone)
                 updated_phone_signup.email=updated_mail
-            updated_phone_signup.save()  
+                updated_phone_signup.save() 
+             
                 
         #sending messages based on email and phone 
         if(len(updated_phone)>0 and len(updated_mail)>0):
