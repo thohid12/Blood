@@ -385,7 +385,7 @@ def reset(request):
                # Redirect to the OTP verification page
                messages.success(request,"Please Check Your Email For The OTP")
                return redirect('otp')
-             else:
+            else:
                  messages.error(request," email is not matching(Please Enter The Prvious Email)")
                  return redirect('reset')
                 
