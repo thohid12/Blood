@@ -374,19 +374,23 @@ def reset(request):
         exists = User.objects.filter(username=username).exists()
         email=request.POST["email"]
         reset_password=request.POST["password"]
-        
-        if (user.email==email and exists==True):
+        if(exists==True):
             #set_password use for hash format(using this method the password save in hash format)
             #user.password=reset_password (if we used this then the password store in plain text)
             user = User.objects.get(username=username)
-            user.set_password(reset_password)
-            user.save()
-            #return redirect('Login') 
-            # Send OTP to the user’s email
-            send_otp_email(user)
-            # Redirect to the OTP verification page
-            messages.success(request,"Please Check Your Email For The OTP")
-            return redirect('otp')
+            if (user.email==email):
+               user.set_password(reset_password)
+               user.save()
+               #return redirect('Login') 
+               # Send OTP to the user’s email
+               send_otp_email(user)
+               # Redirect to the OTP verification page
+               messages.success(request,"Please Check Your Email For The OTP")
+               return redirect('otp')
+             else:
+                 messages.error(request," email is not matching(Please Enter The Prvious Email)")
+                 return redirect('reset')
+                
         else:
             messages.error(request,"Phone or email are not matching(Please Enter The Prvious Phone and Email)")
             return redirect('reset')
