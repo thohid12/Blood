@@ -322,16 +322,17 @@ def update(request):
                 
         #sending messages based on email and phone 
         if(len(updated_phone)>0 and len(updated_mail)>0):
-            messages.success(request,"Your phone or email are updated")
+            messages.success(request,"Provided Information Are Updated")
             return render(request,'update.html',{"phone":updated_phone,"val":1})
         elif(len(updated_phone)>0 and len(updated_mail)==0):
-            messages.success(request,"Your phone is updated")
+            messages.success(request,"Provided Information Are Updated")
             print(updated_phone)
             return render(request,'update.html',{"phone":updated_phone,"val":1})
         elif(len(updated_phone)==0 and len(updated_mail)>0):
-            messages.success(request,"Your email is updated")
+            messages.success(request,"Provided Information Are Updated")
             return render(request,'update.html',{"phone":previous_phone})
         else:
+            messages.success(request,"Provided Information Are Updated")
             return render(request,'update.html',{"phone":previous_phone})
         
             
