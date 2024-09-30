@@ -374,10 +374,11 @@ def reset(request):
         exists = User.objects.filter(username=username).exists()
         email=request.POST["email"]
         reset_password=request.POST["password"]
-        user = User.objects.get(username=username)
+        
         if (user.email==email and exists==True):
             #set_password use for hash format(using this method the password save in hash format)
             #user.password=reset_password (if we used this then the password store in plain text)
+            user = User.objects.get(username=username)
             user.set_password(reset_password)
             user.save()
             #return redirect('Login') 
