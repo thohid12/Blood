@@ -4,11 +4,7 @@ from django.utils import timezone
 from datetime import timedelta
 
 # Create your models here.
-""" class Donar_signup_info(models.Model):
-    phone=models.CharField(max_length=11)
-    password=models.CharField(max_length=60)
-    email = models.EmailField(max_length=60)
-    access = models.IntegerField(default=0) """
+
 
 class signup_info:
     c_password:str
@@ -44,6 +40,11 @@ class ProfileInfo:
     DaysLeft:int
     TotalDonate:int
     ProbableDate:str
+
+
+class Feedback(models.Model):
+    phone=models.CharField(max_length=11)
+    feedback=models.CharField(max_length=300)
     
 #models for otp(start here)
 class OTP(models.Model):
