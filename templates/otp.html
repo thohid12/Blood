@@ -38,7 +38,7 @@
                 </div>
                 <div class="input_container">
                      <i class="fa-solid fa-mobile-alt"></i>
-                    <input type="password" name="OTP" id="OTP" oninput="hideText()" placeholder="Enter Your OTP"
+                    <input type="text" name="OTP" id="OTP" oninput="hideText()" placeholder="Enter Your OTP"
                         required />
                 </div>
 
@@ -90,9 +90,7 @@
             });
         });
 
-    document.getElementById('OTP').addEventListener('focus', function() {
-        document.getElementById('nameHelp').style.display = 'block';
-    });
+
 
 
 
