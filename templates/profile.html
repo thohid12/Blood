@@ -84,10 +84,17 @@
             </div>
         </div>
         <div class="donation-info">
+          {% if fab.DaysLeft >= 0 %}
             <div class="donation-info-card">
                 <h3>{{ fab.DaysLeft }}</h3>
                 <h3>Days Left</h3>
             </div>
+            {% else %}
+            <div class="donation-info-card">
+                <h3>You Can Give</h3>
+                <h3>Blood</h3>
+            </div>
+            {% endif %}
             <div class="donation-info-card">
                 <h3>{{ fab.TotalDonate }}</h3>
                 <h3>Total Donate</h3>
