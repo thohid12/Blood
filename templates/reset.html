@@ -65,28 +65,6 @@
     </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.querySelector('.fa-eye');
-            const eyeSlashIcon = document.querySelector('.fa-eye-slash');
-
-            // Initially show the fa-eye icon and hide the fa-eye-slash icon
-            eyeIcon.style.display = 'inline';
-            eyeSlashIcon.style.display = 'none';
-
-            // Toggle password visibility and icon
-            eyeIcon.addEventListener('click', function () {
-                passwordInput.type = 'text';
-                eyeIcon.style.display = 'none';
-                eyeSlashIcon.style.display = 'inline';
-            });
-
-            eyeSlashIcon.addEventListener('click', function () {
-                passwordInput.type = 'password';
-                eyeIcon.style.display = 'inline';
-                eyeSlashIcon.style.display = 'none';
-            });
-        });
 
         function hideText() {
             var inputField_phone = document.getElementById("phone").value;
