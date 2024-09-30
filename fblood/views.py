@@ -400,7 +400,7 @@ def reset(request):
 def  otp(request):
     if request.method == 'POST':
         username=request.POST["phone"]
-        otp_input=request.POST["password1"]
+        otp_input=request.POST["OTP"]
         reset_password=request.POST["password"]
         print(otp_input)
         
