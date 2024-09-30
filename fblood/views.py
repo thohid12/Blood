@@ -384,7 +384,7 @@ def reset(request):
             # Send OTP to the user’s email
             send_otp_email(user)
             # Redirect to the OTP verification page
-            messages.error(request,"Please Check Your Email For The OTP")
+            messages.success(request,"Please Check Your Email For The OTP")
             return redirect('otp')
         else:
             messages.error(request,"Phone or email are not matching(Please Enter The Prvious Phone and Email)")
@@ -409,6 +409,7 @@ def  otp(request):
         if otp and otp.otp ==otp_input:
             if otp.is_valid():
                 # OTP is valid, process further
+                messages.success(request,"Successfully Change Password")
                 return redirect('Login')
             else:
                 # OTP expired
