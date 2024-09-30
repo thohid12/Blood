@@ -39,14 +39,26 @@ def signup(request):
         email=request.POST["email"]
         exists_phone = User.objects.filter(username=phone).exists()
         exists_mail= User.objects.filter(email=email).exists()
+        
+        #showing error message for each field individually
+        if(len(phone)!=11):
+            messages.error(request," this phone number  already registered or wrong(Length Should Be 11)")
+            return redirect('signup')
+        elif(password!=c_password):
+            messages.error(request,"Password and confirm password doesn't match")
+            return redirect('signup')
+        elif(exists_phone==True):
+            messages.error(request,"This Phone Number Already Registered")
+            return redirect('signup')
+        elif(exists_mail==True):
+            messages.error(request,"This email Already Registered")
+            return redirect('signup')
        
-        if(password==c_password and len(phone)==11 and exists_phone==False and exists_mail==False):
+        else:
             info = User.objects.create_user(username=phone,password=password,email=email)
             info.save()
             return redirect('Login')
-        else:
-            messages.error(request,"Password and confirm password doesn't match or this phone number or email are already registered or wrong")
-            return redirect('signup')
+
     else:
         return render(request,'signup.html')
     
