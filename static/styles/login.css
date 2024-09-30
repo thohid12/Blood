@@ -96,7 +96,7 @@ form>p>a{
     font-weight: bold;
 }
 
-/* New Error Messege start 16/9/24 */
+/* New Error-success Messege start 16/9/24 */
 .error{
     background-color: #c605122e;
     display: flex;
@@ -107,17 +107,34 @@ form>p>a{
     color: rgba(198, 5, 19, 1);
     padding: 10px;
     border: 2px solid rgba(198, 5, 19, 1);
-    border-style: dashed;
     border-radius: 5px;
-    margin: 10px 0px;
+    margin: 5px 0px;
     text-align: center;
+    /* display: none; */
 }
+
+.success{
+    background-color: #03d18c71;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    color: #00875a;
+    padding: 10px;
+    border: 2px solid #00875a;
+    border-radius: 5px;
+    margin: 5px 0px;
+    text-align: center;
+    /* display: none; */
+}
+
 @media (min-width: 440px){
-    .error{
+    .success, .error{
         flex-direction: row;
     }
 }
-/* New Error Messege end */
+/* New Error-success Messege end */
 
 
 /* Responsive Code section */
