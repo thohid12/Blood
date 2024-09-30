@@ -179,10 +179,10 @@
         </div>
         <div class="feedback-form">
             <h2>Feedback</h2>
-            <form action="#" method="post">
+            <form action="feedback" method="post">
                 {% csrf_token %}
                 <!-- home hidden form -->
-                <input type="text" name="phone" id="hidden_phone2" style="display:none" placeholder="Phone Number"
+                <input type="text" name="hidden_phone_feedback" id="hidden_phone2" style="display:none" placeholder="Phone Number"
                     required />
 
                 <div class="input_container">
