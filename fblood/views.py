@@ -373,14 +373,12 @@ def reset(request):
         username=request.POST["phone"]
         exists = User.objects.filter(username=username).exists()
         email=request.POST["email"]
-        reset_password=request.POST["password"]
+        
         if(exists==True):
             #set_password use for hash format(using this method the password save in hash format)
             #user.password=reset_password (if we used this then the password store in plain text)
             user = User.objects.get(username=username)
             if (user.email==email):
-               user.set_password(reset_password)
-               user.save()
                #return redirect('Login') 
                # Send OTP to the user’s email
                send_otp_email(user)
@@ -402,7 +400,8 @@ def reset(request):
 def  otp(request):
     if request.method == 'POST':
         username=request.POST["phone"]
-        otp_input=request.POST["password"]
+        otp_input=request.POST["password1"]
+        reset_password=request.POST["password"]
         print(otp_input)
         
            
@@ -414,6 +413,8 @@ def  otp(request):
         if otp and otp.otp ==otp_input:
             if otp.is_valid():
                 # OTP is valid, process further
+                user.set_password(reset_password)
+                user.save()
                 messages.success(request,"Successfully Change Password")
                 return redirect('Login')
             else:
