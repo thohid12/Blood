@@ -13,5 +13,6 @@ urlpatterns = [
     path('update', views.update,name='update'),
     path('reset', views.reset,name='reset'),
     path('otp', views.otp,name='otp'),
+    path('feedback', views.feedback,name='feedback'),
     path('Logout', views.Logout,name='Logout'),
 ]
