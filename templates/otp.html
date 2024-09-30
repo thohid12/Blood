@@ -38,20 +38,24 @@
                 </div>
 
                 <input type="submit" onclick="storePhoneNumber()" value="Submit" />
-                <!-- New Error Messege start 16/9/24 -->
+          <!-- New error and success msg start  -->
+           {% if messages %}
+           {% for message in messages %}
+           {% if message.tags == "error" %}
+           <div class="error" id="textToHide">
+               <i class="fa-solid fa-triangle-exclamation"></i>
+               <p>{{ message }}</p>
+           </div>
+           {% else %}
+           <div class="success" id="textToHide">
+               <i class="fa-regular fa-circle-check"></i>
+               <p>{{ message }}</p>
+           </div>
 
-                {% if messages %}
-                {% for message in messages %}
-                {% if message.tags == "error" %}
-                <div class="error" id="textToHide">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <p >{{ message }}</p>
-                </div>
-                <!-- New Error messege end -->
-                 {% endif %}
-                 {% endfor %}
-                 {% endif %}
-                <!-- New Error messege end -->
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <!-- New error and success msg end -->
 
             </form>
         </div>
