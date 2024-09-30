@@ -30,7 +30,7 @@
                 </div>
                 <div class="input_container">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="email" name="email" id="email" placeholder="Email Address" required />
+                    <input type="email" name="email" id="email" oninput="hideText()" placeholder="Email Address" required />
                 </div>
 <!--                 <div class="input_container">
                     <i class="fa-solid fa-lock"></i>
@@ -90,11 +90,10 @@
 
         function hideText() {
             var inputField_phone = document.getElementById("phone").value;
-            var inputField_pass = document.getElementById("password").value;
             var inputField_email = document.getElementById("email").value;
             var textToHide = document.getElementById("textToHide");
 
-            if (inputField_phone.length > 0 || inputField_pass.length > 0 ||inputField_email.length >0) {
+            if (inputField_phone.length > 0 || inputField_email.length >0) {
                 textToHide.style.display = "none"; // Hide the text
             }
         }
