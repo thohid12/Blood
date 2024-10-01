@@ -17,13 +17,12 @@ from django.contrib.auth import authenticate,login,logout
 from cloudinary.uploader import upload  # For Cloudinary upload
 
 
-#otp
+#otp start
 import random
 from django.core.mail import send_mail
 from django.utils import timezone
 from .models import OTP
-
-
+#otp end
 
 
 
@@ -33,29 +32,37 @@ from .models import OTP
 # Create your views here.
 def signup(request):
     if request.method == "POST":
-        phone=request.POST["phone"]
-        password=request.POST["password"]
-        c_password=request.POST["c_password"]
-        email=request.POST["email"]
-        exists_phone = User.objects.filter(username=phone).exists()
-        exists_mail= User.objects.filter(email=email).exists()
         
-        #showing error message for each field individually
-        if(len(phone)!=11):
+        #start storing the user input in variable for signup
+        signup_phone=request.POST["phone"]
+        signup_password=request.POST["password"]
+        signup_confirm_password=request.POST["c_password"]
+        signup_email=request.POST["email"]
+        #end storing the user input in variable for signup
+        
+        #start checking the phone and email exists in (User) or not
+        exists_phone_inUser = User.objects.filter(username=signup_phone).exists()
+        exists_mail_inUser= User.objects.filter(email=signup_email).exists()
+        #end checking the phone and email exists in (User) or not
+        
+        #start showing error message for each field individually
+        if(len(signup_phone)!=11):
             messages.error(request," this phone number  already registered or wrong(Length Should Be 11)")
             return redirect('signup')
-        elif(password!=c_password):
+        elif(signup_password!=signup_confirm_password):
             messages.error(request,"Password and confirm password doesn't match")
             return redirect('signup')
-        elif(exists_phone==True):
+        elif(exists_phone_inUser==True):
             messages.error(request,"This Phone Number Already Registered")
             return redirect('signup')
-        elif(exists_mail==True):
+        elif(exists_mail_inUser==True):
             messages.error(request,"This email Already Registered")
             return redirect('signup')
-       
+        #end showing error message for each field individually
+        
         else:
-            info = User.objects.create_user(username=phone,password=password,email=email)
+            #Creating an user account
+            info = User.objects.create_user(username=signup_phone,password=signup_password,email=signup_email)
             info.save()
             return redirect('Login')
 
@@ -65,20 +72,23 @@ def signup(request):
     
 def Login(request):
     if request.method == "POST":
-        val=1
-        phone=request.POST["phone"]
-        password=request.POST["password"]
-        #phone1=phone
-        #exists = Donar_signup_info.objects.filter(phone=phone,password=password).exists()
-       #exists=authenticate(request,username=phone,password=password)
-        user = authenticate(request, username=phone, password=password)
-        print(user)
-        #exists = User.objects.filter(phone=phone,password=password).exists()
+        
+        #start storing the user input in variable for login
+        login_phone=request.POST["phone"]
+        login_password=request.POST["password"]
+        #send storing the user input in variable for login
+        
+
+        #exists = Donar_signup_info.objects.filter(phone=phone,password=password).exists()(check multiple field in an account)
+        
+        user = authenticate(request, username=login_phone, password=login_password)
+        
+        #print(user)
+       
        
         if user is not None:
             login(request,user)
-            #return render(request,'home.html',{"phone":phone,"val":val})
-            return redirect(f'{reverse("home")}?phone={phone}')
+            return redirect(f'{reverse("home")}?phone={login_phone}')
 
         else:
             messages.error(request,"Wrong phone number or password")
@@ -88,11 +98,12 @@ def Login(request):
 
 @login_required(login_url='Login')
 def home(request):
+    #here val helps to store the phone number in frontend and the logic is written in home page
     val=0
-    phone = request.GET.get('phone')
-    if phone:
+    phone_send_from_login = request.GET.get('phone')
+    if phone_send_from_login:
         val=1
-        return render(request,'home.html',{"phone":phone,"val":val})
+        return render(request,'home.html',{"phone":phone_send_from_login,"val":val})
     else:
         return render(request,'home.html',{"val":val})
         
@@ -101,74 +112,77 @@ def home(request):
 @login_required(login_url='Login')
 def donate(request):
     if request.method == "POST":
-        uploaded_file = request.FILES.get("image")  # Assuming the input field name is "file"
-        name=request.POST["fullName"]
-        phone=request.POST["phone"]
-        blood=request.POST["BloodGroup"]
-        """ print(phone) """
-        """ blood=blood.upper() """
-        print(blood)
-        date=request.POST["lastDate"]
-        district=request.POST["district"]
-        police=request.POST["policeStation"]
-        exists = User.objects.filter(username=phone).exists()
-        exists1 = Donar_donate_info.objects.filter(phone=phone).exists()
-        print(exists)
-        print(exists1)
+        #storing the user input for donate
+        donate_uploaded_file = request.FILES.get("image")  # Assuming the input field name is "file"
+        donate_name=request.POST["fullName"]
+        donate_phone=request.POST["phone"]
+        donate_blood=request.POST["BloodGroup"]
+        donate_date=request.POST["lastDate"]
+        donate_district=request.POST["district"]
+        donate_police=request.POST["policeStation"]
+        #ending the user input for donate
         
-        if uploaded_file:
+        #start checking that phone exists or not
+        exists_inUser = User.objects.filter(username=donate_phone).exists()
+        exists_inDonar_donate_info = Donar_donate_info.objects.filter(phone=donate_phone).exists()
+        #end checking that phone exists or not
+
+        
+        if donate_uploaded_file:
             # Process the uploaded image (e.g., save it to a model)
-            print("upload")
-            if(len(phone)!=11 or exists!=True or exists1==True):
+            if(len(donate_phone)!=11 or exists_inUser!=True or exists_inDonar_donate_info==True):
                 messages.error(request,"You have submitted wrong information or this phone number already donate")
-                print("unsave")
+                #print("unsave")
                 return redirect('donate')
             
             
             else:
                 # Upload the image to Cloudinary
-                cloudinary_response = upload(uploaded_file)
+                cloudinary_response = upload(donate_uploaded_file)
             
                 # Get the secure URL of the uploaded image
                 image_url = cloudinary_response.get('secure_url')
-                print(image_url)
-                info = Donar_donate_info(name=name,phone=phone,blood=blood,date=date,district=district,
-                                         police=police,img=image_url)
+                
+                #saving information
+                info = Donar_donate_info(name=donate_name,phone=donate_phone,blood=donate_blood,date=donate_date,district=donate_district,
+                                         police=donate_police,img=image_url)
                 info.save()
-                print("save")
                 messages.success(request,"All information have been submitted successfully")
                 return redirect('donate')
-               #return render(request, "body.html") 
-            
-            
-               #image_instance = Donar_info(img=uploaded_file)
-               #image_instance.save()
-               #return HttpResponse("Image uploaded successfully!")
 
     else:
-         print("meo")
          return render(request,'donate.html')
 
 @login_required(login_url='Login')      
 def find(request):
     if request.method == "POST":
-        blood=request.POST["BloodGroup"]
-        date=request.POST["blood_requre_date"]
-        district=request.POST["district"]
-        police=request.POST["policeStation"]
+        #storing the user input for finding donors
+        find_blood=request.POST["BloodGroup"]
+        find_date=request.POST["blood_requre_date"]
+        find_district=request.POST["district"]
+        find_police=request.POST["policeStation"]
+        #ending the user input for finding donors
+        
+        #count variable used here for checking the condition
         count=0
+        
+        #initializes an empty list
         temp = []
+        
+        #fetching the Donar_donate_info data
         fetch=Donar_donate_info.objects.all()
         
         for info in fetch:
-            #tot=(date-info.last).days
-            date1 = parse_date(date)
+            
+            #parse_date used to convert a date string into a date object
+            date1 = parse_date(find_date)
             date2 = parse_date(info.date)
             difference= date1 - date2
+            
+            #converting into days
             days = difference.days
-            print(difference)
-            print(days)
-            if(info.blood == blood and days>=121 and info.district == district and info.police == police):
+            
+            if(info.blood == find_blood and days>=121 and info.district == find_district and info.police ==find_police):
                 count+=1
                 address= info.police + ", " + info.district
                 obj=FindInfo()
@@ -177,15 +191,13 @@ def find(request):
                 obj.blood=info.blood
                 obj.address=address
                 obj.img=info.img
-                """ temp=FindInfo(name=info.name,phon=info.phone,blood=info.blood,address=address,img=info.img) """
                 temp.append(obj)
-                """ temp.save() """
+                
         if(count==0):
                 messages.error(request,"Sorry! There aren't any donors available in your criteria.")
                 return redirect('find')
         else:
-            print("2")
-            messages.success(request,"Sorry! There aren't any donors available in your criteria.")
+            messages.success(request,"Find succesfully")
             return render(request,'find.html',{"fabs":temp})
         
     else:
@@ -195,20 +207,24 @@ def find(request):
 @login_required(login_url='Login')
 def profile(request):
    if request.method == "POST":
-        phone=request.POST["phoneNumber"]
-        print("ami")
-        print(phone)
+        profile_phone=request.POST["phoneNumber"]
+        
+        #Total is used for counting how many times blood given by this account
         Total=0
+        
+        #fetching the data from Previousinfo
         fetch=PreviousInfo.objects.all()
         for info in fetch:
-            if(phone==info.phone):
+            if(profile_phone==info.phone):
                 Total+=1
         
+        #count variable used here for checking the condition
         count=0
+        
         temp = []
         fetch=Donar_donate_info.objects.all()
         for info in fetch:
-            if(phone==info.phone):
+            if(profile_phone==info.phone):
                 count+=1
                 address= info.police + ", " + info.district
                 obj=ProfileInfo()
@@ -233,10 +249,9 @@ def profile(request):
                 obj.ProbableDate=new_date_str
                 temp.append(obj)
                 return render(request,'profile.html',{"fabs":temp,"val":count})
+            
         if(count == 0):
-            print(phone)
-            print("odo")
-            return render(request,'profile.html',{"val":count,"phone":phone})
+            return render(request,'profile.html',{"val":count,"phone":profile_phone})
         
                 
 @login_required(login_url='Login')       
@@ -245,17 +260,6 @@ def update(request):
         updated_file = request.FILES.get("image")  # Assuming the input field name is "file"
         updated_phone=request.POST["phone"]
         updated_mail=request.POST["updated_email"]
-        
-        
-        """ previous logic
-        if(Donar_donate_info.objects.filter(phone=updated_phone).exists()==True or 
-               User.objects.filter(username=updated_phone).exists()==True or 
-               PreviousInfo.objects.filter(phone=updated_phone).exists()==True or
-               User.objects.filter(email=updated_mail).exists()==True ):
-                messages.error(request,"Your updated phone or email already exist in other account")
-                return redirect('update') """
-        
-        
         
         
         if(len(updated_phone)>0):    
